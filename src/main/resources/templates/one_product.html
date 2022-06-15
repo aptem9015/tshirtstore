@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/css/style.css" th:href="@{/css/style.css}" />
+    <title>Главная страница</title>
+</head>
+<body style="padding-top: 0;margin-bottom: 0;">
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(188,210,239,0.32);">
+        <a class="navbar-brand" th:href="@{~/}">Tshirt Store</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{~/}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" th:href="@{~/admin/}">Для админа</a>
+                </li>
+            </ul>
+            <form action="/search/" name="search" class="form-inline my-2 my-lg-0" style="margin-right: 30px">
+                <input type="search" class="form-control mr-sm-2" placeholder="Поиск по названию" aria-label="search" name="search" id="search">
+                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Искать">
+            </form>
+        </div>
+    </nav>
+</div>
+
+<div class="row justify-content-md-center">
+    <H4><B><span th:text="${product.nameProduct}"></span></B></H4>
+
+</div>
+<br/>
+<div class="row justify-content-md-center">
+    <img th:src="@{'/imagedisplay?id=' + ${product.id}}" width="250px" height="200px" class="rounded float-left ml-4" alt="...">
+</div>
+<div class="row justify-content-md-center">
+    <dl>
+        <!--Картинка-->
+        <dt>    Категория: </dt>
+        <dd><span th:text="${product.getCategory().getNameCategory()}"></span></dd>
+        <dt>  Производитель:</dt>
+        <dd><span th:text="${product.getProducer().getNameProducer()}"></span></dd>
+        <dt>    Мужское/Женское: </dt>
+        <dd><span th:text="${product.male_female}"></span></dd>
+        <dt>      Размеры: </dt>
+        <dd><span th:text="${product.sizes}"></span></dd>
+        <dt>    Цена: </dt>
+        <dd><span th:text="${product.price}"></span></dd>
+    </dl>
+</div>
+
+<div class="row justify-content-md-center">
+    <form th:action="@{'/' + ${product.id} + '/add_order'}" name="order" class="form-inline my-2 my-lg-0 mr-4 pt-2" style="float: right;">
+        <input class="btn btn-lg btn-success my-2 my-sm-0" type="submit" value="Заказать">
+    </form>
+</div>
+
+
+</body>
+</html>

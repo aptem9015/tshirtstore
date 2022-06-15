@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/css/style.css" th:href="@{/css/style.css}" />
+    <title>Главная страница</title>
+</head>
+<body style="padding-top: 0; margin-bottom: 0;">
+<div>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(188,210,239,0.32);">
+    <a class="navbar-brand" th:href="@{~/}">Tshirt Store</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{~/}">Главная <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" th:href="@{~/admin/}">Для админа</a>
+            </li>
+        </ul>
+            <form action="/search/" name="search" class="form-inline my-2 my-lg-0" style="margin-right: 30px">
+                <input type="search" class="form-control mr-sm-2" placeholder="Поиск по названию" aria-label="search" name="search" id="search">
+                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Искать">
+            </form>
+    </div>
+</nav>
+</div>
+<div class="row">
+        <form action="/sort/" name="sort" class="nav form-inline my-2 my-lg-0 ml-2 pt-2" >
+            <select required id="type" name="type" class="form-control" placeholder="">
+                <option value="all" selected>Поиск по категориям</option>
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.nameCategory}"></option>
+            </select>
+            <input class="btn btn-outline-success my-2 my-sm-0 ml-2" type="submit" value="Найти">
+        </form>
+    </div>
+</div>
+<div class="row" style="margin: 15px">
+        <div th:each="product : ${products}" class="card" style="width: 335px; height: 325px; overflow: auto; margin: 10px 10px;">
+            <a th:href="@{'/' + ${product.id} + '/one_product'}" style="text-decoration: none; color: black">
+                <img th:src="@{'/imagedisplay?id=' + ${product.id}}" width="250px" height="200px" class="rounded mx-auto d-block" alt="...">
+                <div class="card-body" style="text-align: center; ">
+                        <H5><B><span th:text="${product.nameProduct}"></span></B></H5>
+                        <span th:text="${product.getCategory().getNameCategory()}"></span><br/>
+                        <span th:text="${product.price}"></span>₴
+                </div>
+            </a>
+        </div>
+        <hr class="my-4">
+
+    </div>
+</body>
+</html>

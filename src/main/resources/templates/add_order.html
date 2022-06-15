@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/css/style.css" th:href="@{/css/style.css}" />
+    <title>Заказ</title>
+</head>
+<body style="padding-top: 0; margin-bottom: 0;">
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(188,210,239,0.32);">
+        <a class="navbar-brand" th:href="@{~/}">Tshirt Store</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{~/}">Главная <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" th:href="@{~/admin/}">Для админа</a>
+                </li>
+            </ul>
+            <form action="/search/" name="search" class="form-inline my-2 my-lg-0" style="margin-right: 30px">
+                <input type="search" class="form-control mr-sm-2" placeholder="Поиск по названию" aria-label="search" name="search" id="search">
+                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Искать">
+            </form>
+        </div>
+    </nav>
+</div>
+
+<main class="content-wrapper">
+    <div class="container">
+        <div class="py-3 text-center">
+            <h4>Добавление информации о заказе - <span th:text="${product.getCategory().getNameCategory()}"></span> <span th:text="${product.nameProduct}"></span></h4>
+            <h5>Доступные размеры: <span th:text="${product.sizes}"></span></h5>
+        </div>
+        <form enctype="multipart/form-data" action="#" th:action="@{'/' + ${product.id} + '/add_order'}" th:object="${order}" method="post"
+              class="needs-validation" novalidate>
+            <div class="row justify-content-md-center">
+                <div class="col-md-4 mb-3">
+                    <label for="size"></label>
+                    <input th:field="*{size}" type="text" class="form-control" id="size"
+                           placeholder="Введите один из доступных размеров"
+                           value="" required>
+                    <span th:errors="*{size}" th:if="${#fields.hasErrors('size')}"
+                          style="color: red;"></span>
+                </div>
+            </div>
+            <div class="py-3">
+                <hr class="mb-4">
+                <h5>Введите контактную информацию</h5>
+            </div>
+            <div class="row">
+                <div class="col-md-8 mb-3">
+                    <label for="fio">ФИО</label>
+                    <input th:field="*{fio}" type="text" class="form-control" id="fio"
+                           placeholder="Введите Ваше ФИО"
+                           value="" required>
+                    <span th:errors="*{fio}" th:if="${#fields.hasErrors('fio')}"
+                          style="color: red;"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="phone">Номер телефона</label>
+                    <input th:field="*{phone}" type="text" class="form-control" id="phone"
+                           placeholder="Введите ваш номер телефона"
+                           value="" required>
+                    <span th:errors="*{phone}" th:if="${#fields.hasErrors('phone')}"
+                          style="color: red;"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="email">Email</label>
+                    <input th:field="*{email}" type="text" class="form-control" id="email"
+                           placeholder="Введите Ваш email"
+                           value="" required>
+                    <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"
+                          style="color: red;"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="country">Страна</label>
+                    <input th:field="*{country}" type="text" class="form-control" id="country"
+                           placeholder="Введите страну "
+                           value="" required>
+                    <span th:errors="*{country}" th:if="${#fields.hasErrors('country')}"
+                          style="color: red;"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="city">Город</label>
+                    <input th:field="*{city}" type="text" class="form-control" id="city"
+                           placeholder="Введите город"
+                           value="" required>
+                    <span th:errors="*{city}" th:if="${#fields.hasErrors('city')}"
+                          style="color: red;"></span>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-12 mb-3">
+                    <label for="adress">Адресс</label>
+                    <input th:field="*{adress}" type="text" class="form-control" id="adress"
+                           placeholder="Введите адресс доставки"
+                           value="" required>
+                    <span th:errors="*{adress}" th:if="${#fields.hasErrors('adress')}"
+                          style="color: red;"></span>
+                </div>
+            </div>
+
+            <hr class="mb-4">
+            <button class="btn btn-dark btn-lg btn-block" type="submit" value="Submit">Отправить заказ</button>
+
+
+        </form>
+    </div>
+
+
+    <br/><br/><br/>
+</main>
+
+
+</body>
+</html>
